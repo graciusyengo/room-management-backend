@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Room } from './entities/room.entity';
 import { Repository } from 'typeorm';
+import { NOTFOUND } from 'dns';
 
 
 @Injectable()
@@ -20,7 +21,14 @@ export class RoomsService {
   }
 
   async findOne(id: string) {
-    return await this.roomRepository.findOne({where:{id:id}})
+    const room=await this.roomRepository.createQueryBuilder("room")
+    .where("room.id=:id",{id:id})
+    .getOne()
+    if(!room) throw new HttpException("la salle n'existe pas",HttpStatus.NOT_FOUND)
+
+      return room
+
+    
   }
 
   async update(id: string, updateRoomDto: UpdateRoomDto) {
@@ -38,10 +46,7 @@ export class RoomsService {
   }
 
   async remove(id: string) {
-    const room = await this.roomRepository.findOne({ where: { id: id } })
-    if (!room) {
-      throw new NotFoundException('room ne pas trouver')
-    }
+const room= await this.findOne(id)
     return await this.roomRepository.remove(room);
   }
 }
