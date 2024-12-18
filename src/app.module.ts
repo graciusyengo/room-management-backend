@@ -7,6 +7,7 @@ import { Room } from './rooms/entities/room.entity';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { TypeRoomModule } from './type-room/type-room.module';
 
 @Module({
   imports: [ TypeOrmModule.forRoot({
@@ -18,7 +19,7 @@ import { AuthModule } from './auth/auth.module';
     database: 'management-room',
     entities: [Room,User],
     synchronize: true,
-  }),RoomsModule, UsersModule, AuthModule],
+  }),RoomsModule, UsersModule, AuthModule, TypeRoomModule],
   controllers: [AppController],
   providers: [AppService],
 })

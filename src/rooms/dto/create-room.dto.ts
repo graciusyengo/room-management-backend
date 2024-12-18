@@ -12,7 +12,7 @@ adress:string
 capacite:number
 
 @IsBoolean()
-disponibilte:boolean
+disponibilite:boolean
 
 @IsString()
 @IsOptional()

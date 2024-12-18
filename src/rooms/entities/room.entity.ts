@@ -1,15 +1,21 @@
-import { TimesTampEntity } from "src/orm/timestamp/timestamp.entity/timestamp.entity";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { TimesTampEntity } from 'src/orm/timestamp/timestamp.entity/timestamp.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 @Entity('rooms')
 export class Room extends TimesTampEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id:string
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    name:string
+  @Column()
+  name: string;
 
-    @Column()
-    adress:string
+  @Column()
+  adress: string;
 
   @Column({ type: 'int', nullable: false })
   capacite: number;
@@ -19,7 +25,4 @@ export class Room extends TimesTampEntity {
 
   @Column({ type: 'text', nullable: true })
   description: string;
-
- 
-
 }
