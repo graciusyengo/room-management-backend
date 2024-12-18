@@ -19,16 +19,16 @@ export class TypeRoomController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.typeRoomService.findOne(+id);
+    return this.typeRoomService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTypeRoomDto: UpdateTypeRoomDto) {
-    return this.typeRoomService.update(+id, updateTypeRoomDto);
+    return this.typeRoomService.update(id, updateTypeRoomDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.typeRoomService.remove(+id);
+    return this.typeRoomService.remove(id);
   }
 }

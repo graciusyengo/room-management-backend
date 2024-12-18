@@ -10,19 +10,25 @@ import {
 export class Room extends TimesTampEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+  @Column()
+  nom: string;
 
   @Column()
-  name: string;
+  adresse: string;
 
-  @Column()
-  adress: string;
-
-  @Column({ type: 'int', nullable: false })
+  @Column({ type: 'int' })
   capacite: number;
 
-  @Column({ type: 'boolean', default: true })
+  @Column({ default: true })
   disponibilite: boolean;
 
   @Column({ type: 'text', nullable: true })
+  images: string;
+
+  @Column({ default: 'Disponible' })
+  etat: string;
+
+  @Column({ type: 'text', nullable: true })
   description: string;
+
 }

@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateTypeRoomDto } from './dto/create-type-room.dto';
 import { UpdateTypeRoomDto } from './dto/update-type-room.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TypeRoom } from './entities/type-room.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TypeRoomService {
-  create(createTypeRoomDto: CreateTypeRoomDto) {
-    return 'This action adds a new typeRoom';
+  constructor(@InjectRepository(TypeRoom) private readonly typeRoomRepository:Repository<TypeRoom>){
+
+  }
+  async create(createTypeRoomDto: CreateTypeRoomDto) {
+    return await this.typeRoomRepository.save(createTypeRoomDto);
   }
 
-  findAll() {
-    return `This action returns all typeRoom`;
+  async findAll() {
+    return await this.typeRoomRepository.find() ;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} typeRoom`;
+  async findOne(id: string) {
+    const typeRoom=await this.typeRoomRepository.createQueryBuilder("typeRoom")
+    .where("typeRoom.id=:id",{id:id})
+    .getOne()
+    if(!typeRoom) throw new HttpException("ce type de salle n'existe pas",HttpStatus.NOT_FOUND)
+      return typeRoom
   }
 
-  update(id: number, updateTypeRoomDto: UpdateTypeRoomDto) {
-    return `This action updates a #${id} typeRoom`;
+  async update(id: string, updateTypeRoomDto: UpdateTypeRoomDto) {
+    await this.findOne(id)
+     await this.typeRoomRepository.update(id,updateTypeRoomDto);
+     return await this.findOne(id)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} typeRoom`;
+  async remove(id: string) {
+    const typeRoom= await this.findOne(id)
+
+    return await this.typeRoomRepository.remove(typeRoom)
   }
 }

@@ -1,29 +1,13 @@
 import { IsBoolean, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
+import { Column, Entity } from "typeorm";
 
 export class CreateRoomDto {
 
-@IsString()
-name:string
-
-@IsString()
-adress:string
-
-@IsNumber()
-capacite:number
-
-@IsBoolean()
-disponibilite:boolean
-
-@IsString()
-@IsOptional()
-@MaxLength(20)
-etat?: string;
-
-@IsString()
-@IsOptional()
-description?: string;
-
-
-
-    
+    @IsString()
+    nom: string;
+  
+    @IsString()
+    description: string;
+  
+   
 }
