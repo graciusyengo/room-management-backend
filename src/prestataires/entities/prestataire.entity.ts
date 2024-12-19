@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Room } from "src/rooms/entities/room.entity";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Prestataire {
 
@@ -16,6 +17,8 @@ export class Prestataire {
     email: string;
 
     @Column()
-    telephone: string;
+    telephone: string
+    @ManyToMany(()=>Room,room=>room.prestataires) 
+    rooms:Room[]
 
 }
