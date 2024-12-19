@@ -16,6 +16,7 @@ import { PrestatairesModule } from './prestataires/prestataires.module';
 import { TypePrestatairesModule } from './type-prestataires/type-prestataires.module';
 import { Equipement } from './equipements/entities/equipement.entity';
 import { EntreprisesModule } from './entreprises/entreprises.module';
+import { Entreprise } from './entreprises/entities/entreprise.entity';
 
 @Module({
   imports: [ TypeOrmModule.forRoot({
@@ -25,7 +26,7 @@ import { EntreprisesModule } from './entreprises/entreprises.module';
     username: 'root',
     password: '',
     database: 'management-room',
-    entities: [Room,User,TypeRoom,Reservation,Equipement],
+    entities: [Room,User,TypeRoom,Reservation,Equipement,Entreprise],
     synchronize: true,
   }),RoomsModule, UsersModule, AuthModule, TypeRoomModule, ReservationsModule, EquipementsModule, PrestatairesModule, TypePrestatairesModule, EntreprisesModule],
   controllers: [AppController],

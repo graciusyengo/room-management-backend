@@ -4,18 +4,32 @@ import { UpdateEquipementDto } from './dto/update-equipement.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Equipement } from './entities/equipement.entity';
 import { Repository } from 'typeorm';
+import { RoomsService } from 'src/rooms/rooms.service';
 
 @Injectable()
 export class EquipementsService {
 
-  constructor(@InjectRepository(Equipement) private readonly equipementRepository:Repository<Equipement>){
+  constructor(@InjectRepository(Equipement) private readonly equipementRepository:Repository<Equipement>,
+private readonly roomService:RoomsService){
   }
   async create(createEquipementDto: CreateEquipementDto) {
-    return await this.equipementRepository.save(createEquipementDto)
+
+
+    const {roomId,...createEquipementData}=createEquipementDto
+
+   await  this.roomService.findOne(roomId)
+
+  const newEquipement= this.equipementRepository.create({
+    ...createEquipementData,
+    room:{id:roomId}
+   })
+   return await this.equipementRepository.save(newEquipement)
   }
 
   findAll() {
-    return this.equipementRepository.find()
+    return this.equipementRepository.createQueryBuilder("equipement")
+    .leftJoinAndSelect("equipement.room","room")
+    .getMany()
   }
 
   async findOne(id: string) {

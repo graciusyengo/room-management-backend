@@ -30,6 +30,10 @@ export class CreateRoomDto {
     @IsUUID()
     @IsNotEmpty()
     typeRoomId:string
+
+    @IsUUID()
+    @IsNotEmpty()
+    entrepriseId:string
   
    
 }

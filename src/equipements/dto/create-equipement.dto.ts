@@ -1,4 +1,4 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsString, IsUUID } from "class-validator";
 
 export class CreateEquipementDto {
 
@@ -7,4 +7,7 @@ export class CreateEquipementDto {
 
     @IsNumber()
     quantite:number
+
+    @IsUUID()
+    roomId:string
 }

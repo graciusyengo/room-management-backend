@@ -6,27 +6,31 @@ import { Room } from './entities/room.entity';
 import { Repository } from 'typeorm';
 import { NOTFOUND } from 'dns';
 import { TypeRoomService } from 'src/type-room/type-room.service';
+import { EntreprisesService } from 'src/entreprises/entreprises.service';
 
 
 @Injectable()
 export class RoomsService {
   constructor(@InjectRepository(Room) private roomRepository: Repository<Room>,
-private readonly typeRoomService:TypeRoomService) {
+private readonly typeRoomService:TypeRoomService,
+private readonly entrepriseService:EntreprisesService) {
 
   }
   async create(createRoomDto: CreateRoomDto) {
 
-    const {typeRoomId,...createRoomDtoData}= createRoomDto
+    const {typeRoomId,entrepriseId,...createRoomDtoData}= createRoomDto
+   
 
 
     const typeRoom= await this.typeRoomService.findOne(typeRoomId)
+    const entreprise= await this.entrepriseService.findOne(entrepriseId)
 
    const newRoom= await this.roomRepository.create({
     ...createRoomDtoData,
-    typeRoom:{ id: typeRoomId }
+    typeRoom:{ id: typeRoomId },
+    entreprise:{id:entrepriseId}
+
    })
-
-
   return  await this.roomRepository.save(newRoom)
 
   }
@@ -34,6 +38,8 @@ private readonly typeRoomService:TypeRoomService) {
   findAll() {
     return this.roomRepository.createQueryBuilder('room')
     .leftJoinAndSelect("room.typeRoom","typeRom")
+    .leftJoinAndSelect("room.entreprise","entreprise")
+    .leftJoinAndSelect("room.equipements","equipement")
     .getMany()
   }
 
@@ -43,10 +49,7 @@ private readonly typeRoomService:TypeRoomService) {
     .where("room.id=:id",{id:id})
     .getOne()
     if(!room) throw new HttpException("la salle n'existe pas",HttpStatus.NOT_FOUND)
-
       return room
-
-    
   }
 
   async update(id: string, updateRoomDto: UpdateRoomDto) {

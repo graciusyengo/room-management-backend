@@ -1,5 +1,6 @@
 import { TimesTampEntity } from "src/orm/timestamp/timestamp.entity/timestamp.entity";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Room } from "src/rooms/entities/room.entity";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Equipement extends TimesTampEntity {
@@ -9,5 +10,9 @@ export class Equipement extends TimesTampEntity {
 
     @Column()
     quantite:number
+
+    @ManyToOne(()=>Room,room=>room.equipements)
+    @JoinColumn()
+    room:Room
 
 }

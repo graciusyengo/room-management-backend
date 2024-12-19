@@ -1,3 +1,5 @@
+import { Entreprise } from 'src/entreprises/entities/entreprise.entity';
+import { Equipement } from 'src/equipements/entities/equipement.entity';
 import { TimesTampEntity } from 'src/orm/timestamp/timestamp.entity/timestamp.entity';
 
 import {TypeRoom} from "src/type-room/entities/type-room.entity"
@@ -9,7 +11,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  OneToMany
 } from 'typeorm';
 
 @Entity('rooms')
@@ -40,6 +43,12 @@ export class Room extends TimesTampEntity {
   @ManyToOne(()=>TypeRoom,typeRoom=>typeRoom.rooms)
   @JoinColumn()
   typeRoom:TypeRoom
+  @ManyToOne(()=>Entreprise,entreprise=>entreprise.rooms)
+  @JoinColumn()
+  entreprise:Entreprise
+
+  @OneToMany(()=>Equipement,equipement=>equipement.room)
+  equipements:Equipement[]
 
 
 }
