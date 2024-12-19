@@ -15,7 +15,7 @@ export class TypeRoomService {
   }
 
   async findAll() {
-    return await this.typeRoomRepository.find() ;
+    return await this.typeRoomRepository.find({relations:['rooms']}) ;
   }
 
   async findOne(id: string) {

@@ -5,23 +5,41 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Room } from './entities/room.entity';
 import { Repository } from 'typeorm';
 import { NOTFOUND } from 'dns';
+import { TypeRoomService } from 'src/type-room/type-room.service';
 
 
 @Injectable()
 export class RoomsService {
-  constructor(@InjectRepository(Room) private roomRepository: Repository<Room>) {
+  constructor(@InjectRepository(Room) private roomRepository: Repository<Room>,
+private readonly typeRoomService:TypeRoomService) {
 
   }
-  create(createRoomDto: CreateRoomDto) {
-    return this.roomRepository.save(createRoomDto)
+  async create(createRoomDto: CreateRoomDto) {
+
+    const {typeRoomId,...createRoomDtoData}= createRoomDto
+
+
+    const typeRoom= await this.typeRoomService.findOne(typeRoomId)
+
+   const newRoom= await this.roomRepository.create({
+    ...createRoomDtoData,
+    typeRoom:{ id: typeRoomId }
+   })
+
+
+  return  await this.roomRepository.save(newRoom)
+
   }
 
   findAll() {
-    return this.roomRepository.find();
+    return this.roomRepository.createQueryBuilder('room')
+    .leftJoinAndSelect("room.typeRoom","typeRom")
+    .getMany()
   }
 
   async findOne(id: string) {
     const room=await this.roomRepository.createQueryBuilder("room")
+    .leftJoinAndSelect("room.typeRoom","typeRoom")
     .where("room.id=:id",{id:id})
     .getOne()
     if(!room) throw new HttpException("la salle n'existe pas",HttpStatus.NOT_FOUND)

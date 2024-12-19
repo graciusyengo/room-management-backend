@@ -1,11 +1,17 @@
 import { TimesTampEntity } from 'src/orm/timestamp/timestamp.entity/timestamp.entity';
+
+import {TypeRoom} from "src/type-room/entities/type-room.entity"
+
 import {
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn
 } from 'typeorm';
+
 @Entity('rooms')
 export class Room extends TimesTampEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -30,5 +36,10 @@ export class Room extends TimesTampEntity {
 
   @Column({ type: 'text', nullable: true })
   description: string;
+
+  @ManyToOne(()=>TypeRoom,typeRoom=>typeRoom.rooms)
+  @JoinColumn()
+  typeRoom:TypeRoom
+
 
 }
