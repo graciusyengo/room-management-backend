@@ -38,9 +38,9 @@ export class UsersService {
     return users
   }
 
-  async findOne(id: string) {
+  async findOne(email: string) {
     const user= await  this.userRepository.createQueryBuilder('user')
-    .where('user.id=:id',{id:id})
+    .where('user.email=:email',{email:email})
     .getOne()
 
     if(!user) throw new HttpException("user n'existe pas",HttpStatus.NOT_FOUND)
