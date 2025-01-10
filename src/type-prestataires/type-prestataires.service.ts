@@ -23,7 +23,6 @@ export class TypePrestatairesService {
     .where("typePrestataire.id=:id",{id:id})
     .getOne() 
 
-
     if(!typePrestataire) throw new HttpException("ce type de prestataire n'existe pas",HttpStatus.NOT_FOUND)
 
       return typePrestataire

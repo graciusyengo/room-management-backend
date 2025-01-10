@@ -9,6 +9,9 @@ export class CreateRoomDto {
     @IsString()
     description: string;
 
+    @IsString()
+    commune: string;
+
     @IsNotEmpty()
     adresse: string;
   

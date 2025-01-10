@@ -8,6 +8,9 @@ export class CreateEquipementDto {
     @IsNumber()
     quantite:number
 
+    @IsString()
+    description:string
+
     @IsUUID()
     roomId:string
 }

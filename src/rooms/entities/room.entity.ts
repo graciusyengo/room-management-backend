@@ -43,6 +43,9 @@ export class Room extends TimesTampEntity {
   @Column({ type: 'text', nullable: true })
   description: string;
 
+  @Column({ type: 'text', nullable: true })
+  commune: string;
+
   @ManyToOne(()=>TypeRoom,typeRoom=>typeRoom.rooms)
   @JoinColumn()
   typeRoom:TypeRoom
@@ -50,12 +53,11 @@ export class Room extends TimesTampEntity {
   @JoinColumn()
   entreprise:Entreprise
 
-  @OneToMany(()=>Equipement,equipement=>equipement.room)
+  @OneToMany(()=>Equipement,equipement=>equipement.room,{cascade:true})
   equipements:Equipement[]
 
   @ManyToMany(()=>Prestataire,prestataire=>prestataire.rooms)
   @JoinTable()
   prestataires:Prestataire[]
-
 
 }

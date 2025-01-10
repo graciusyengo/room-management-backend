@@ -7,4 +7,8 @@ export class TypePrestataire {
 
     @Column()
     libelle: string; // Exemple : "Médecin", "Plombier", "Consultant"
+
+    @Column()
+    description: string; // Exemple : "Médecin", "Plombier", "Consultant"
+
 }

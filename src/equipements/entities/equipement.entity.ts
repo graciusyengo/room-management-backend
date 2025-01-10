@@ -11,7 +11,11 @@ export class Equipement extends TimesTampEntity {
     @Column()
     quantite:number
 
-    @ManyToOne(()=>Room,room=>room.equipements)
+
+    @Column()
+    description:string
+
+    @ManyToOne(()=>Room,room=>room.equipements,{onDelete:'CASCADE'})
     @JoinColumn()
     room:Room
 
