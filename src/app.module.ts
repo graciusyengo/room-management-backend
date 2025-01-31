@@ -18,6 +18,7 @@ import { Equipement } from './equipements/entities/equipement.entity';
 import { EntreprisesModule } from './entreprises/entreprises.module';
 import { Entreprise } from './entreprises/entities/entreprise.entity';
 import { Prestataire } from './prestataires/entities/prestataire.entity';
+import { CommunesModule } from './communes/communes.module';
 
 @Module({
   imports: [ TypeOrmModule.forRoot({
@@ -29,7 +30,7 @@ import { Prestataire } from './prestataires/entities/prestataire.entity';
     database: 'management-room',
     entities: [Room,User,TypeRoom,Reservation,Equipement,Entreprise,Prestataire],
     synchronize: true,
-  }),RoomsModule, UsersModule, AuthModule, TypeRoomModule, ReservationsModule, EquipementsModule, PrestatairesModule, TypePrestatairesModule, EntreprisesModule],
+  }),RoomsModule, UsersModule, AuthModule, TypeRoomModule, ReservationsModule, EquipementsModule, PrestatairesModule, TypePrestatairesModule, EntreprisesModule, CommunesModule],
   controllers: [AppController],
   providers: [AppService],
 })

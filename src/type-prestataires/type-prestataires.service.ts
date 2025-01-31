@@ -24,7 +24,6 @@ export class TypePrestatairesService {
     .getOne() 
 
     if(!typePrestataire) throw new HttpException("ce type de prestataire n'existe pas",HttpStatus.NOT_FOUND)
-
       return typePrestataire
   }
 

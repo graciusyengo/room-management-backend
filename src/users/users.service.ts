@@ -18,6 +18,8 @@ export class UsersService {
       where: { email: createUserDto.email },
     });
 
+    console.log(userExist)
+
     if (userExist) throw new BadRequestException('email existe deja ');
     const user = await this.userRepository.save({
       email: createUserDto.email,
@@ -38,7 +40,18 @@ export class UsersService {
     return users
   }
 
-  async findOne(email: string) {
+  async findOne(id: string) {
+    const user= await  this.userRepository.createQueryBuilder('user')
+    .where('user.id=:id',{id:id})
+    .getOne()
+
+    if(!user) throw new HttpException("user n'existe pas",HttpStatus.NOT_FOUND)
+      return user
+  }
+
+
+  
+  async findOneMail(email: string) {
     const user= await  this.userRepository.createQueryBuilder('user')
     .where('user.email=:email',{email:email})
     .getOne()

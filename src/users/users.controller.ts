@@ -22,6 +22,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @Get(':id')
+  findOneMail(@Param('id') id: string) {
+    return this.usersService.findOneMail(id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);

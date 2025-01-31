@@ -8,4 +8,7 @@ type:string
 
 @IsString()
 description:string
+
+@IsString()
+icon:string
 }

@@ -14,6 +14,9 @@ type:string
 @Column()
 description:string
 
+@Column()
+icon:string
+
 @OneToMany(()=>Room,room=>room.typeRoom)
 rooms:Room[]
   
