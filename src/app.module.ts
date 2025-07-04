@@ -27,7 +27,7 @@ import { CommunesModule } from './communes/communes.module';
     port: 3306,
     username: 'root',
     password: '',
-    database: 'management-room',
+    database: 'management_room',
     entities: [Room,User,TypeRoom,Reservation,Equipement,Entreprise,Prestataire],
     synchronize: true,
   }),RoomsModule, UsersModule, AuthModule, TypeRoomModule, ReservationsModule, EquipementsModule, PrestatairesModule, TypePrestatairesModule, EntreprisesModule, CommunesModule],
